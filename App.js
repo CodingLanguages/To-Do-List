@@ -1,9 +1,10 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Icon, TouchableOpacity,TextInput, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Icon, TouchableOpacity,TextInput, FlatList, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 const COLORS = {primary: '#1f145c', white: '#fff'};
 
 export default function App() {
+  const [textInput, setTextInput] = React.useState('');
   const [todos, setTodos] = React.useState([
     {id:1, task:"First todo", completed: true},
     {id:2, task:"Second todo", completed: false},
@@ -16,26 +17,46 @@ export default function App() {
     return (
     <View style={styles.listItem}>
       <View style={{flex: 1}}>
-        <Text style={{fontWeight: 'bold', fontSize: 15, color: COLORS.primary, textDecorationLine: todo?.completed?"line-through":"none"}}>
-          {todo?.task}
+        <Text style={
+          {fontWeight: 'bold', 
+          fontSize: 15, 
+          color: COLORS.primary, 
+          textDecorationLine: todo?.completed?"line-through":"none"}
+          }>
+            {todo?.task}
         </Text>
       </View>
       {
         !todo?.completed && (
           <TouchableOpacity
             style={styles.actionIcon}>
-            <MaterialIcons name="done" size={24} color="COLORS.white" />
+            <MaterialIcons name="done" size={20} color={COLORS.white} />
           </TouchableOpacity>
         )
       }
       
       <TouchableOpacity
         style={[styles.actionIcon, {backgroundColor: 'red'}]}>
-        <MaterialIcons name="delete" size={24} color="COLORS.white" />
+        <MaterialIcons name="delete" size={20} color={COLORS.white} />
       </TouchableOpacity>
     </View>
     )
   }  
+
+  const addTodo = () => {
+    if(textInput == ""){
+      Alert.alert('Error', 'Please input todo')
+    } else {
+      const newTodo = {
+        id: Math.random(),
+        task: textInput,
+        completed: false,
+      };
+      setTodos([...todos, newTodo]);
+      setTextInput('');
+    }
+    
+  };
 
 
   return (
@@ -54,13 +75,15 @@ export default function App() {
       />
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
-          <TextInput placeholder="Add Todo" />
+          <TextInput 
+            placeholder="Add Todo" 
+            value={textInput}
+            onChangeText={(text)=>setTextInput(text)} />
         </View>
-        <TouchableOpacity>
-      <View style={styles.iconContainer}>
-      <MaterialIcons name="add" size={30} color={COLORS.white} />
-
-      </View>
+      <TouchableOpacity onPress={addTodo}>
+        <View style={styles.iconContainer}>
+          <MaterialIcons name="add" size={30} color={COLORS.white} />
+        </View>
       </TouchableOpacity>
       </View>
       
