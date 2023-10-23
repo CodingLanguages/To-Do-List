@@ -15,11 +15,24 @@ export default function App() {
   const ListItem = ({todo}) => {
     return (
     <View style={styles.listItem}>
-      <View>
+      <View style={{flex: 1}}>
         <Text style={{fontWeight: 'bold', fontSize: 15, color: COLORS.primary, textDecorationLine: todo?.completed?"line-through":"none"}}>
           {todo?.task}
         </Text>
       </View>
+      {
+        !todo?.completed && (
+          <TouchableOpacity
+            style={styles.actionIcon}>
+            <MaterialIcons name="done" size={24} color="COLORS.white" />
+          </TouchableOpacity>
+        )
+      }
+      
+      <TouchableOpacity
+        style={[styles.actionIcon, {backgroundColor: 'red'}]}>
+        <MaterialIcons name="delete" size={24} color="COLORS.white" />
+      </TouchableOpacity>
     </View>
     )
   }  
@@ -63,6 +76,15 @@ const styles = StyleSheet.create({
     elevation: 12,
     borderRadius: 7,
     marginVertical: 10,
+  },
+  actionIcon: {
+    height: 25,
+    width: 25,
+    backgroundColor: 'green',
+    justifyContent:'center',
+    alignItems: 'center',
+    marginLeft: 5,
+    borderRadius: 3,
   },
   header: {
     paddingTop: Platform.OS === 'android' ? 50 : 0,
