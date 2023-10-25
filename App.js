@@ -1,17 +1,22 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, Icon, TouchableOpacity,TextInput, FlatList, Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const COLORS = {primary: '#1f145c', white: '#fff'};
 
 export default function App() {
   const [textInput, setTextInput] = React.useState('');
   const [todos, setTodos] = React.useState([
-    {id:1, task:"First todo", completed: true},
-    {id:2, task:"Second todo", completed: false},
-    {id:3, task:"Third todo", completed: false},
-    {id:4, task:"Fourth todo", completed: true},
-    {id:5, task:"Fifth todo", completed: true},
+    
   ]);
+
+  React.useEffect(() => {
+    getTodosFromUserDevice()
+  }, [])
+
+  React.useEffect(()=> {
+    saveTodoToUserDevice(todos);
+  }, [todos])  
 
   const ListItem = ({todo}) => {
     return (
@@ -42,6 +47,27 @@ export default function App() {
     </View>
     )
   }  
+
+  const saveTodoToUserDevice = async (todos) => {
+    try {
+      const stringifyTodos = JSON.stringify(todos);
+      await AsyncStorage.setItem('todos', stringifyTodos);
+    } catch (e) {
+      console.log(e);
+    }
+
+  }
+
+  const getTodosFromUserDevice = async () => {
+    try {
+      const todos = await AsyncStorage.getItem("todos");
+      if(todos != null) {
+        setTodos(JSON.parse(todos))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const addTodo = () => {
     if(textInput == ""){
@@ -146,7 +172,7 @@ const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
     bottom: 0,
-    color: COLORS.white,
+    backgroundcolor: COLORS.white,
     width:'100%',
     flexDirection: 'row',
     alignItems: 'center',
