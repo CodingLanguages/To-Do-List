@@ -29,7 +29,7 @@ export default function App() {
       {
         !todo?.completed && (
           <TouchableOpacity
-            style={styles.actionIcon}>
+            style={[styles.actionIcon]} onPress={() => markTodoComplete(todo?.id)}>
             <MaterialIcons name="done" size={20} color={COLORS.white} />
           </TouchableOpacity>
         )
@@ -58,6 +58,15 @@ export default function App() {
     
   };
 
+  const markTodoComplete = (todoId) => {
+    const newTodos = todos.map((item)=>{
+      if(item.id == todoId) {
+        return{...item, completed: true};
+      }
+      return item;
+    });
+    setTodos(newTodos);
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
