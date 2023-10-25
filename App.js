@@ -73,13 +73,26 @@ export default function App() {
     setTodos(newTodos);
   }; 
 
+  const clearTodos = () => {
+    Alert.alert("Confirm", "Clear todos?",[
+      {
+        text: "Yes",
+        onPress: () => setTodos([]),
+      },
+      {
+        text: "No",
+      }
+    ])
+    setTodos([]);
+  }
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
       <View style={styles.header}>
         <Text style={{fontWeight: 'bold', fontSize: 20, color: COLORS.primary}}>
           TO-DO
         </Text>
-        <MaterialIcons name="delete" size={24} color="red"/>
+        <MaterialIcons name="delete" size={24} color="red" onPress={clearTodos}/>
       </View>
       <FlatList 
         showsVerticalScrollIndicator={false}
