@@ -36,7 +36,7 @@ export default function App() {
       }
       
       <TouchableOpacity
-        style={[styles.actionIcon, {backgroundColor: 'red'}]}>
+        style={[styles.actionIcon, {backgroundColor: 'red'}]} onPress={()=> deleteTodo(todo?.id)}>
         <MaterialIcons name="delete" size={20} color={COLORS.white} />
       </TouchableOpacity>
     </View>
@@ -67,6 +67,11 @@ export default function App() {
     });
     setTodos(newTodos);
   }
+
+  const deleteTodo = (todoId) => {
+    const newTodos = todos.filter(item => item.id != todoId);
+    setTodos(newTodos);
+  }; 
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
