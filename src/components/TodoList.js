@@ -8,7 +8,7 @@ const TodoList = ({todoItems, onEdit, onComplete, onDelete}) => {
         <View style={todoListStyles.todoList}>
             <FlatList
                 data={todoItems}
-                keyExtractor={(item) =>item.id.toString()}
+                keyExtractor={(item) =>(item.id ? item.id.toString() : Math.random().toString())}
                 renderItem={({ item }) => (
                     <TodoItem
                         todoItem={item}

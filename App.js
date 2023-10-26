@@ -22,6 +22,30 @@ export default function App() {
     loadTodoItems().then((items)=> setTodoItems(items));
   }, []);
 
+
+  // Function to handle adding a new todo item
+  const handleAddTodo = (newItem) => {
+    const updatedItems = addTodoItem(todoItems, newItem);
+    setTodoItems(updatedItems);
+  }
+
+  //Function to handle editing a todo item
+  const handleEditTodo = (editedItem) => {
+    const updatedItems = editTodoItem(todoItems, editedItem);
+    setTodoItems(updatedItems);
+  }
+
+  // Function to handle marking a todo item as complete
+  const handleMarkComplete = (completedItem) => {
+    const updatedItems = markTodoComplete(todoItems, completedItem);
+    setTodoItems(updatedItems);
+  }
+
+  // Function to handle deleting a todo item
+  const handleDeleteTodo = (deletedItem) => {
+    const updatedItems = deleteTodoItem(todoItems, deletedItem);
+    setTodoItems(updatedItems);
+  }
   // Function to filter todo items based on the search text
   const filteredItems = todoItems.filter((item) =>
   item.text.toLowerCase().includes(searchText.toLowerCase())
@@ -40,12 +64,12 @@ export default function App() {
       />
       <TodoList
         todoItems={filteredItems}
-        onEdit={editTodoItem}
-        onComplete={markTodoComplete}
-        onDelete={deleteTodoItem}
+        onEdit={handleEditTodo}
+        onComplete={handleMarkComplete}
+        onDelete={handleDeleteTodo}
       />
       <Footer 
-        onAddItem={addTodoItem} 
+        onAddItem={handleAddTodo} 
       />  
     </View>
   );
