@@ -2,22 +2,19 @@ import { StyleSheet } from 'react-native';
 
 const headerStyles = StyleSheet.create({
     header: {
-        paddingTop: Platform.OS === 'android' ? 50 : 0,
-        paddingLeft: 20,
-        backgroundColor:'#3498db',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+      paddingTop: Platform.OS === 'android' ? 50 : 0,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#3498db',
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#2980b9',
     },
     title: {
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: 'white',
-    },  
-    deleteButton: {
-        size: 24,
-        color: 'red',
-    }
-}); 
+      fontSize: 24,
+      color: 'white',
+    },
+  });
 
 export default headerStyles;

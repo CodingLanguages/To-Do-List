@@ -1,24 +1,43 @@
 import { StyleSheet } from 'react-native';
 
 const todoItemStyles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
+  
+    todoItem: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      backgroundColor: '#ffffff',
+      padding: 5,
+      marginVertical: 5,
+      borderRadius: 5,
+      shadowColor: 'rgba(0, 0, 0, 0.1)',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+      elevation: 5,
     },
-    text: {
-        flex: 1,
-        fontSize: 16,
-        color: 'black',
+    itemText: {
+      flex: 1,
+      fontSize: 16,
     },
-    buttonContainer: {
-        flexDirection: 'row',
+    completedText: {
+      textDecorationLine: 'line-through',
+      color: '#aaa',
     },
-})
+    actionButton: {
+      padding: 10,
+      backgroundColor: 'transparent',
+      borderRadius: 5,
+      marginLeft: 5,
+    },
+    completedAction: {
+      backgroundColor: 'transparent',
+    },
+    editInput: {
+      flex: 1,
+      fontSize: 18,
+      color: '#333',
+    },
+  });
 
 export default todoItemStyles;
